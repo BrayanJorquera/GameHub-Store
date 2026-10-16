@@ -8,6 +8,12 @@
   --radio-borde: 8px;
 }
 
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -28,7 +34,7 @@ body {
 
 header {
   background-color: var(--color-superficie);
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -97,6 +103,6 @@ main {
 footer {
   background-color: var(--color-superficie);
   text-align: center;
-  padding: 1.5rem;
-  margin-top: 2rem;
+  padding: 0.5rem;
+  margin-top: auto;
 }

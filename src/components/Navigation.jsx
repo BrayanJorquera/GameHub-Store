@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 function Navigation() {
   return (
-    <header>
-    <h1><a>GameHub Store</a></h1>
+  <header>
+    <div class="logo">
+      <h1><Link to='/'>GameHub Store</Link></h1>
+    </div>  
     <nav>
       <ul>
-        <li><a>Inicio</a></li>
-        <li><a>Catálogo</a></li>
-        <li><a>Carrito</a></li>
-        <li><a>Mis Órdenes</a></li>
-        <li><a>Log in</a></li>
+        <li><Link to='/'>Inicio</Link></li>
+        <li><Link to='/Catalogo'>Catálogo</Link></li>
+        <li><Link to='/Carrito'>Carrito</Link></li>
+        <li><Link to='/Ordenes'>Mis Órdenes</Link></li>
+        <li><Link to='/Login'>Login</Link></li>
       </ul>
     </nav>
   </header>

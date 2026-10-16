@@ -1,12 +1,35 @@
-import { useState } from 'react'
+import { Routes, Route} from 'react-router-dom';
+// Header navegable y footer
+import Navigation from './components/navigation.jsx'
+import Footer from './components/Footer.jsx'
+// Importacion de las distintas vistas
+import Inicio from './pages/inicio';
+import Catalogo from './pages/catalogo';
+import Carrito from './pages/carrito';
+import Ordenes from './pages/ordenes';
+import Login from './pages/login';
+import Checkout from './pages/checkout';
+import Detalle from './pages/detalle';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <main>
-      <h1>G</h1>
-    </main>
+    <>
+      <Navigation/>
+    
+      <main>
+        <Routes>
+          <Route path="/" exact element={<Inicio />} />
+          <Route path="/catalogo" element={<Catalogo />} />
+          <Route path="/carrito" element={<Carrito />} />
+          <Route path="/ordenes" element={<Ordenes />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/detalle" element={<Detalle />} />
+        </Routes>
+      </main>
+    
+      <Footer/>
+    </>
   )
 }
 
