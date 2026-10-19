@@ -10,6 +10,7 @@ import Ordenes from './pages/ordenes';
 import Login from './pages/login';
 import Checkout from './pages/checkout';
 import Detalle from './pages/detalle';
+import './utilities.css'
 
 function App() {
   return (

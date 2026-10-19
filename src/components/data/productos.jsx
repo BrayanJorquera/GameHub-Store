@@ -1,3 +1,4 @@
+import "./ListaProductos.css"
 const productos = [
   {
     id: 1,
@@ -44,3 +45,28 @@ const productos = [
     destacado: true
   }
 ];
+
+// Recibe un objeto completo como prop y lo desestructura dentro.
+function TarjetaProducto({ producto }) {
+  const { nombre, precio, categoria, imagen } = producto
+  return (
+    <article className="producto">
+      <small>{categoria}</small>
+      <h3>{nombre}</h3>
+      <p>${precio}</p>
+      <img src={imagen} alt={nombre} />  
+    </article>
+  )
+}
+
+function ListaProductos() {
+  return (
+    <div className="fila">
+      {productos.map((p) => (
+        <TarjetaProducto key={p.id} producto={p} />
+      ))}
+    </div>
+  )
+}
+
+export default ListaProductos

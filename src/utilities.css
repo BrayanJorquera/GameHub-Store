@@ -1,0 +1,23 @@
+.caja {
+  background: white;
+  color: var(--color-texto-contraste);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  padding: var(--espacio) 16px;
+  margin: 10px 0;
+}
+
+.fila {
+  display: flex;
+  gap: var(--espacio);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 380px;
+}
+
