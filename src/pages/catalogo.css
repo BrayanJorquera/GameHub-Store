@@ -1,0 +1,38 @@
+.catalogo-layout {
+  display: flex;
+  flex-direction: column; /*Apila la barra de filtros arriba y el catálogo abajo */
+  gap: 1.5rem;
+  padding: 1.5rem;
+  width: 100%;
+}
+
+.panel-filtros {
+  width: 100%;
+  display: flex;
+  flex-direction: row; /*Distribuye los filtros horizontalmente */
+  flex-wrap: wrap; /*Permite que se acomoden si la pantalla se achica */
+  justify-content: space-between;
+  gap: 1.5rem;
+  background-color: var(--color-superficie);
+  padding: 1.2rem;
+  border-radius: var(--radio-borde);
+  border: 1px solid var(--color-borde);
+}
+
+.grupo-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+  min-width: 180px;
+}
+
+.inputs-precio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.inputs-precio input {
+  width: 100%;
+}

@@ -1,69 +1,109 @@
-import ListaProductos from "../components/data/productos"
+import { useState, useMemo } from 'react'
+import ListaProductos, { productosData } from "../components/data/productos"
+import "./catalogo.css"
 
 function Catalogo() {
+  const [categoria, setCategoria] = useState('todas')
+  const [precioMin, setPrecioMin] = useState('')
+  const [precioMax, setPrecioMax] = useState('')
+  const [criterioOrden, setCriterioOrden] = useState('nombre-asc')
+
+  //Obtener categorías únicas disponibles automáticamente
+  const categoriasDisponibles = ['todas', ...new Set(productosData.map(p => p.categoria))]
+
+  //Filtrado y ordenamiento dinámico
+  const productosFiltrados = useMemo(() => {
+    return productosData
+      .filter((producto) => {
+        //Filtro por categoría
+        if (categoria !== 'todas' && producto.categoria !== categoria) {
+          return false
+        }
+        //Filtro por precio mínimo
+        if (precioMin !== '' && producto.precio < Number(precioMin)) {
+          return false
+        }
+        //Filtro por precio máximo
+        if (precioMax !== '' && producto.precio > Number(precioMax)) {
+          return false
+        }
+        return true
+      })
+      //Ordenamiento según el criterio seleccionado
+      .sort((a, b) => {
+        switch (criterioOrden) {
+          case 'precio-asc':
+            return a.precio - b.precio
+          case 'precio-desc':
+            return b.precio - a.precio
+          case 'nombre-asc':
+            return a.nombre.localeCompare(b.nombre)
+          case 'nombre-desc':
+            return b.nombre.localeCompare(a.nombre)
+          default:
+            return 0
+        }
+      })
+  }, [categoria, precioMin, precioMax, criterioOrden])
+
   return (
-    /*<>
-      <main>
-        <h2>Catálogo de Productos</h2>
+    <div className="catalogo-layout">
+      <div className="panel-filtros">
 
+        {/* Categoría */}
+        <div className="grupo-filtro">
+          <label htmlFor="categoria">Categoría</label>
+          <select 
+            id="categoria" 
+            value={categoria} 
+            onChange={(e) => setCategoria(e.target.value)}
+          >
+            {categoriasDisponibles.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <section style="background-color: var(--color-superficie); padding: 1.5rem; border-radius: var(--radio-borde); margin: 1.5rem 0;">
-          <form id="form-filtro" onsubmit="event.preventDefault();" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end;">
-
-
-            <div style="flex: 1; min-width: 180px;">
-              <label for="filtro-categoria" style="display: block; margin-bottom: 0.3rem;">Categoría:</label>
-              <select id="filtro-categoria" onchange="renderizarCatalogo()" style="width: 100%; padding: 0.5rem; border-radius: var(--radio-borde);">
-                <option value="todas">Todas las categorías</option>
-              </select>
-            </div>
-
-
-            <div style="flex: 1; min-width: 140px;">
-              <label for="precio-min" style="display: block; margin-bottom: 0.3rem;">Precio Mínimo:</label>
-              <input type="number" id="precio-min" placeholder="$0" oninput="renderizarCatalogo()" style="width: 100%; padding: 0.5rem; border-radius: var(--radio-borde);" />
-            </div>
-
-            <div style="flex: 1; min-width: 140px;">
-              <label for="precio-max" style="display: block; margin-bottom: 0.3rem;">Precio Máximo:</label>
-              <input type="number" id="precio-max" placeholder="$ Max" oninput="renderizarCatalogo()" style="width: 100%; padding: 0.5rem; border-radius: var(--radio-borde);" />
-            </div>
-
-
-            <div style="flex: 1; min-width: 180px;">
-              <label for="filtro-orden" style="display: block; margin-bottom: 0.3rem;">Ordenar por:</label>
-              <select id="filtro-orden" onchange="renderizarCatalogo()" style="width: 100%; padding: 0.5rem; border-radius: var(--radio-borde);">
-                <option value="predeterminado">Predeterminado</option>
-                <option value="precio-asc">Precio: Menor a Mayor</option>
-                <option value="precio-desc">Precio: Mayor a Menor</option>
-                <option value="nombre-asc">Nombre: A - Z</option>
-                <option value="nombre-desc">Nombre: Z - A</option>
-              </select>
-            </div>
-
-          </form>
-          <p id="error-filtro-precio" class="mensaje-error" style="margin-top: 0.5rem;"></p>
-        </section>
-
-
-        <section>
-          <div id="contenedor-catalogo" class="grid-productos">
-
+        <div className="grupo-filtro">
+          <label>Rango de Precio</label>
+          <div className="inputs-precio">
+            <input
+              type="number"
+              placeholder="Mín"
+              value={precioMin}
+              onChange={(e) => setPrecioMin(e.target.value)}
+            />
+            <span>-</span>
+            <input
+              type="number"
+              placeholder="Máx"
+              value={precioMax}
+              onChange={(e) => setPrecioMax(e.target.value)}
+            />
           </div>
-        </section>
-      </main>
+        </div>
 
-      <script src="logica/data.js"></script>
-      <script src="logica/main.js"></script>
-      <script src="logica/validation.js"></script>
-    </>*/
-    <>
-      <section>
-          <div id="contenedor-catalogo" class="grid-productos">
-            <ListaProductos />
-          </div>
-      </section>   
-    </>
+        <div className="grupo-filtro">
+          <label htmlFor="orden">Ordenar por</label>
+          <select 
+            id="orden" 
+            value={criterioOrden} 
+            onChange={(e) => setCriterioOrden(e.target.value)}
+          >
+            <option value="nombre-asc">Nombre (A - Z)</option>
+            <option value="nombre-desc">Nombre (Z - A)</option>
+            <option value="precio-asc">Precio: Menor a Mayor</option>
+            <option value="precio-desc">Precio: Mayor a Menor</option>
+          </select>
+        </div>
+      </div>
+
+      <section className="contenido-catalogo">
+        <ListaProductos productos={productosFiltrados} />
+      </section>
+    </div>
   )
 }
 

@@ -1,5 +1,6 @@
 import "./ListaProductos.css"
-const productos = [
+
+export const productosData = [
   {
     id: 1,
     nombre: "Notebook Gamer RTX 4060",
@@ -48,25 +49,27 @@ const productos = [
 
 // Recibe un objeto completo como prop y lo desestructura dentro.
 function TarjetaProducto({ producto }) {
-  const { nombre, precio, categoria, imagen } = producto
+  const { nombre, precio, categoria, imagen, stock } = producto
   return (
     <article className="producto">
       <small>{categoria}</small>
       <h3>{nombre}</h3>
       <p>${precio}</p>
       <img src={imagen} alt={nombre} />  
+      {stock < 1 && <p>Sin stock</p>}
     </article>
   )
 }
 
-function ListaProductos() {
+export default function ListaProductos({ productos = [] }) {
+  if (productos.length === 0) {
+    return <p>No se encontraron productos con estos criterios.</p>
+  }
   return (
-    <div className="fila">
+    <div className="grid-productos">
       {productos.map((p) => (
         <TarjetaProducto key={p.id} producto={p} />
       ))}
     </div>
   )
 }
-
-export default ListaProductos
