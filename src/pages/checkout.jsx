@@ -4,7 +4,6 @@ function Checkout() {
       <h2>Finalizar Compra</h2>
       <p style="margin-bottom: 2rem;">Ingresa tus datos de despacho para completar la orden.</p>
 
-      //Formulario de Checkout (Validado por validation.js)
       <form id="form-checkout" style="background-color: var(--color-superficie); padding: 2rem; border-radius: var(--radio-borde); display: flex; flex-direction: column; gap: 1.2rem;">
 
         <div>

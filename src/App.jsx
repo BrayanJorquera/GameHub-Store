@@ -30,10 +30,6 @@ function App() {
       </main>
     
       <Footer/>
-
-      <script src="js/logica/validation.js"></script>
-      <script src="js/logica/data.js"></script>
-      <script src="js/logica/main.js"></script>
     </>
   )
 }
